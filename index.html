@@ -25,7 +25,6 @@
       overflow-x: hidden;
     }
 
-    /* ── NOISE overlay ── */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -33,7 +32,6 @@
       pointer-events: none; z-index: 0;
     }
 
-    /* ── animated mesh gradient bg ── */
     .mesh {
       position: fixed; inset: 0; z-index: 0;
       background:
@@ -48,10 +46,8 @@
       100% { filter: hue-rotate(30deg); }
     }
 
-    /* ── canvas stars ── */
     #stars { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
-    /* ── floating particles ── */
     .particle {
       position: fixed; top: -40px; z-index: 2; pointer-events: none;
       animation: drift linear infinite;
@@ -64,16 +60,12 @@
       100% { transform: translateY(105vh) translateX(40px) rotate(540deg); opacity: 0; }
     }
 
-    /* ── page wrapper ── */
     .page {
       position: relative; z-index: 3;
       display: flex; flex-direction: column; align-items: center;
       padding: 0 20px 100px;
     }
 
-    /* ═══════════════════════════════
-       HERO
-    ═══════════════════════════════ */
     .hero {
       min-height: 100vh;
       display: flex; flex-direction: column;
@@ -82,7 +74,6 @@
       width: 100%;
     }
 
-    /* date badge */
     .date-badge {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(255,255,255,.06);
@@ -99,10 +90,9 @@
     .date-badge span { width: 6px; height: 6px; border-radius: 50%; background: #a855f7; display: inline-block; animation: blink 1.6s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
 
-    /* avatar */
     .avatar-wrap {
       position: relative;
-      width: 160px; height: 160px;
+      width: 180px; height: 180px;
       margin-bottom: 44px;
     }
     .avatar-wrap .ring {
@@ -117,13 +107,16 @@
     .avatar-wrap .inner {
       width: 100%; height: 100%;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, #ffc6e8, #c084fc 55%, #818cf8);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 4.5rem;
+      overflow: hidden;
       box-shadow: 0 0 50px rgba(192,132,252,.5);
     }
+    .avatar-wrap .inner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
 
-    /* main title */
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(3.2rem, 10vw, 7rem);
@@ -151,7 +144,6 @@
       margin-bottom: 52px;
     }
 
-    /* scroll cue */
     .scroll-cue {
       display: flex; flex-direction: column; align-items: center; gap: 8px;
       color: rgba(255,255,255,.25); font-size: .75rem; letter-spacing: .1em;
@@ -164,9 +156,6 @@
       50%      { transform: translateY(6px); opacity: .9; }
     }
 
-    /* ═══════════════════════════════
-       SECTION HEADER
-    ═══════════════════════════════ */
     .section { width: 100%; max-width: 1000px; margin-bottom: 100px; }
     .section-label {
       font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
@@ -180,9 +169,6 @@
       margin-bottom: 40px; color: rgba(255,255,255,.9);
     }
 
-    /* ═══════════════════════════════
-       CAKE + CANDLES
-    ═══════════════════════════════ */
     .cake-scene {
       display: flex; flex-direction: column; align-items: center; gap: 0;
       margin-bottom: 40px;
@@ -235,9 +221,6 @@
     }
     .cake-note { font-size: .8rem; color: rgba(255,255,255,.3); letter-spacing: .06em; }
 
-    /* ═══════════════════════════════
-       WISH CARDS — bento grid
-    ═══════════════════════════════ */
     .bento {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -304,9 +287,6 @@
       .bc-1,.bc-2,.bc-3,.bc-4,.bc-5 { grid-column: span 6; }
     }
 
-    /* ═══════════════════════════════
-       LETTER
-    ═══════════════════════════════ */
     .letter-wrap {
       width: 100%; max-width: 680px;
       background: rgba(255,255,255,.03);
@@ -344,9 +324,6 @@
       font-style: italic;
     }
 
-    /* ═══════════════════════════════
-       CONFETTI BUTTON
-    ═══════════════════════════════ */
     .cta-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 100px; }
     .btn-wish {
       position: relative; overflow: hidden;
@@ -372,17 +349,11 @@
     .btn-label { position: relative; z-index: 1; }
     .btn-hint { font-size: .75rem; color: rgba(255,255,255,.25); letter-spacing: .08em; }
 
-    /* ═══════════════════════════════
-       FOOTER
-    ═══════════════════════════════ */
     .footer-line {
       font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
       color: rgba(255,255,255,.18);
     }
 
-    /* ═══════════════════════════════
-       CONFETTI PIECES
-    ═══════════════════════════════ */
     .cp {
       position: fixed; pointer-events: none; z-index: 9999; border-radius: 2px;
       animation: cpBurst 1.6s cubic-bezier(.17,.67,.35,1) forwards;
@@ -393,9 +364,6 @@
       100% { opacity: 0; transform: translate(var(--tx),var(--ty)) rotate(var(--r)) scale(.4); }
     }
 
-    /* ═══════════════════════════════
-       SCROLL REVEAL
-    ═══════════════════════════════ */
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
@@ -413,7 +381,9 @@
 
     <div class="avatar-wrap">
       <div class="ring"></div>
-      <div class="inner">🌸</div>
+      <div class="inner">
+        <img src="IMG_0653.jpg" alt="Binderya" />
+      </div>
     </div>
 
     <h1 class="hero-title">
@@ -423,7 +393,7 @@
     <p class="hero-sub">Today the universe celebrates you &nbsp;✦</p>
 
     <div class="scroll-cue">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7/></svg>
       scroll
     </div>
   </section>
@@ -575,7 +545,7 @@
       document.body.appendChild(el);
       setTimeout(()=>el.remove(),2000);
     }
-  }
+  } 
 </script>
 
 <!-- ── BENTO CARD MOUSE GLOW ── -->
