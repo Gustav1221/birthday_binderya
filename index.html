@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, Binderya! 🎂</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #0d0d1a;
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+      color: #fff;
+    }
+
+    #stars-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .petal {
+      position: fixed;
+      top: -60px;
+      font-size: 1.4rem;
+      animation: fall linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: .9; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px 80px;
+    }
+
+    .glow-ring {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, #ff9de2, #c084fc 55%, #818cf8);
+      box-shadow: 0 0 60px 20px rgba(192, 132, 252, .55),
+                  0 0 120px 50px rgba(129, 140, 248, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      margin-bottom: 40px;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 60px 20px rgba(192,132,252,.55), 0 0 120px 50px rgba(129,140,248,.3); }
+      50%       { box-shadow: 0 0 80px 35px rgba(192,132,252,.75), 0 0 160px 70px rgba(129,140,248,.5); }
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      background: linear-gradient(135deg, #f9a8d4, #c084fc, #818cf8, #67e8f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      animation: shimmer 4s linear infinite;
+      background-size: 300%;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: #d8b4fe;
+      margin-bottom: 50px;
+      letter-spacing: .05em;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 60px;
+    }
+
+    .card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      padding: 30px 24px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(192,132,252,.35);
+    }
+    .card .icon { font-size: 2.6rem; margin-bottom: 14px; display: block; }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #f0abfc;
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: .95rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .letter {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 24px;
+      padding: 40px 36px;
+      max-width: 680px;
+      width: 100%;
+      backdrop-filter: blur(16px);
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .letter h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #f9a8d4;
+      margin-bottom: 20px;
+    }
+    .letter p {
+      font-size: 1.05rem;
+      color: #e2e8f0;
+      line-height: 1.9;
+    }
+
+    .candles {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .candle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+    .candle:hover { transform: scale(1.15); }
+    .flame {
+      font-size: 1.8rem;
+      animation: flicker 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes flicker {
+      0%   { transform: scaleY(1) rotate(-2deg); opacity: 1; }
+      50%  { transform: scaleY(1.15) rotate(2deg); opacity: .85; }
+      100% { transform: scaleY(.9) rotate(-1deg); opacity: .95; }
+    }
+    .candle-body {
+      width: 18px;
+      height: 60px;
+      border-radius: 6px 6px 3px 3px;
+      background: linear-gradient(180deg, #fde68a, #f59e0b);
+      margin-top: 2px;
+    }
+    .candle-body.pink   { background: linear-gradient(180deg, #fbcfe8, #ec4899); }
+    .candle-body.purple { background: linear-gradient(180deg, #e9d5ff, #a855f7); }
+    .candle-body.blue   { background: linear-gradient(180deg, #bae6fd, #38bdf8); }
+    .candle-body.mint   { background: linear-gradient(180deg, #bbf7d0, #34d399); }
+
+    .btn-wish {
+      background: linear-gradient(135deg, #c084fc, #818cf8);
+      color: #fff;
+      border: none;
+      padding: 16px 42px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      letter-spacing: .08em;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(192,132,252,.45);
+      transition: transform .2s, box-shadow .2s;
+      margin-bottom: 80px;
+    }
+    .btn-wish:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 14px 40px rgba(192,132,252,.65);
+    }
+
+    footer {
+      color: #64748b;
+      font-size: .85rem;
+      letter-spacing: .06em;
+    }
+
+    .confetti-piece {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: 50%;
+      left: 50%;
+      opacity: 0;
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 999;
+      animation: confettiBurst 1.4s ease-out forwards;
+    }
+    @keyframes confettiBurst {
+      0%   { transform: translate(0,0) rotate(0deg); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) rotate(var(--r)); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+
+<div class="wrapper">
+
+  <div class="glow-ring">🌸</div>
+
+  <h1 class="title">Happy Birthday,<br/>Binderya!</h1>
+  <p class="subtitle">Wishing you a day as magical as you are ✨</p>
+
+  <div class="candles" id="candles">
+    <div class="candle"><div class="flame" id="f1">🔥</div><div class="candle-body"></div></div>
+    <div class="candle"><div class="flame" id="f2">🔥</div><div class="candle-body pink"></div></div>
+    <div class="candle"><div class="flame" id="f3">🔥</div><div class="candle-body purple"></div></div>
+    <div class="candle"><div class="flame" id="f4">🔥</div><div class="candle-body blue"></div></div>
+    <div class="candle"><div class="flame" id="f5">🔥</div><div class="candle-body mint"></div></div>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <span class="icon">💫</span>
+      <h3>Joy & Laughter</h3>
+      <p>May every single day bring you the kind of laughter that makes your stomach hurt and your eyes sparkle.</p>
+    </div>
+    <div class="card">
+      <span class="icon">🌺</span>
+      <h3>Love & Warmth</h3>
+      <p>May you always be surrounded by people who love you deeply and cherish every little thing about you.</p>
+    </div>
+    <div class="card">
+      <span class="icon">🚀</span>
+      <h3>Dreams & Success</h3>
+      <p>May all your dreams take flight and carry you to heights even your wildest imagination can't picture yet.</p>
+    </div>
+    <div class="card">
+      <span class="icon">🌙</span>
+      <h3>Peace & Adventure</h3>
+      <p>May you find perfect balance — serene nights to rest and breathtaking adventures to write stories about.</p>
+    </div>
+  </div>
+
+  <div class="letter">
+    <h2>A Little Note for You 💌</h2>
+    <p>
+      Dear Binderya, today the whole universe pauses just to celebrate <em>you</em>.<br/><br/>
+      You bring a rare kind of light into the lives of everyone lucky enough to know you —
+      the kind that doesn't dim, no matter how cloudy things get.
+      Your smile, your spirit, your whole entire being deserves to be celebrated not just today,
+      but every single day.<br/><br/>
+      Here's to you — another year of beautiful moments, unexpected adventures, and all the things
+      that make your heart full. 🥂<br/><br/>
+      <strong style="color:#f0abfc;">With so much love,<br/>Your Best Friend 💜</strong>
+    </p>
+  </div>
+
+  <button class="btn-wish" onclick="burstConfetti()">🎉 Send a Birthday Wish!</button>
+
+  <footer>Made with 💜 just for Binderya · 2026</footer>
+</div>
+
+<script>
+  const petals = ['🌸','🌷','🌺','💮','🌼','✿','🌹'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petals[Math.floor(Math.random() * petals.length)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.fontSize = (.9 + Math.random() * 1.2) + 'rem';
+    p.style.animationDuration = (6 + Math.random() * 10) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    document.body.appendChild(p);
+  }
+</script>
+
+<script>
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < 160; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + .3,
+        a: Math.random(),
+        da: (Math.random() * .008 + .002) * (Math.random() < .5 ? 1 : -1)
+      });
+    }
+  }
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.a += s.da;
+      if (s.a <= 0 || s.a >= 1) s.da *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${s.a}`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+  resize(); initStars(); drawStars();
+  window.addEventListener('resize', () => { resize(); initStars(); });
+</script>
+
+<script>
+  document.querySelectorAll('.candle').forEach((c) => {
+    c.addEventListener('click', () => {
+      const f = c.querySelector('.flame');
+      if (f.textContent !== '💨') {
+        f.textContent = '💨';
+        f.style.animation = 'none';
+        setTimeout(() => { f.textContent = '🔥'; f.style.animation = ''; }, 2000);
+      }
+    });
+  });
+</script>
+
+<script>
+  const colors = ['#f9a8d4','#c084fc','#818cf8','#67e8f9','#fde68a','#bbf7d0','#fb923c'];
+  function burstConfetti() {
+    for (let i = 0; i < 80; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      const angle = Math.random() * 360;
+      const dist  = 120 + Math.random() * 260;
+      el.style.setProperty('--tx', `${Math.cos(angle * Math.PI/180) * dist}px`);
+      el.style.setProperty('--ty', `${Math.sin(angle * Math.PI/180) * dist}px`);
+      el.style.setProperty('--r', `${Math.random()*720 - 360}deg`);
+      el.style.background = colors[Math.floor(Math.random()*colors.length)];
+      el.style.width  = (6 + Math.random()*10) + 'px';
+      el.style.height = (6 + Math.random()*10) + 'px';
+      el.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1500);
+    }
+  }
+</script>
+
+</body>
+</html>
